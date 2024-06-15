@@ -4,20 +4,36 @@ import { Icon } from "@/components/Icon";
 import { SubmitButton } from "@/components/SubmitButton";
 import { Button, Input } from "@nextui-org/react";
 import Link from "next/link";
-import { useFormState } from "react-dom";
+import { useState } from "react";
 
-const initialState = {
-    messageNome: '',
+interface FormState {
+    messageNome: string;
 }
 
-export default async function Barbearia() {
-    const [state, formAction] = useFormState(create, initialState)
+export default function Barbearia() {
+    const initialState: FormState = {
+        messageNome: '',
+    };
+
+    const [state, setState] = useState<FormState>(initialState); 
+
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+
+        const formData = new FormData(event.currentTarget);
+
+        try {
+            await create(state, formData); 
+        } catch (error) {
+            console.error('Failed to submit form:', error);
+        }
+    };
 
     return (
         <main className="flex min-h-screen p-24">
             <div className="flex flex-col mx-auto pt-12">
                 <Icon />
-                <form action={formAction} className="flex flex-col gap-3 p-6 m-6 rounded min-w-[500px]">
+                <form onSubmit={handleSubmit} className="flex flex-col gap-3 p-6 m-6 rounded min-w-[500px]">
                     <h2 className="text-3xl font-bold text-stone-700">CRIE SUA CONTA</h2>
                     <Input
                         key="nome"
@@ -56,6 +72,17 @@ export default async function Barbearia() {
                         name="cnpj"
                         labelPlacement={"outside"}
                         placeholder="Digite o CNPJ da barbearia"
+                        variant="underlined"
+                        isInvalid={state?.messageNome != ''}
+                        errorMessage={state?.messageNome}
+                    />
+                    <Input
+                        key="senha"
+                        label="Senha"
+                        name="senha"
+                        type="password"
+                        labelPlacement={"outside"}
+                        placeholder="Digite a senha"
                         variant="underlined"
                         isInvalid={state?.messageNome != ''}
                         errorMessage={state?.messageNome}

@@ -7,6 +7,7 @@ interface Servico {
   interface Barbearia {
     id: number;
     nome: string;
+    senha: string;
     email: string;
     telefone: string;
     cnpj: string;

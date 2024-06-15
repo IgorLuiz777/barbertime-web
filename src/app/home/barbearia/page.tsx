@@ -12,6 +12,7 @@ interface Barbearia {
   id: number;
   nome: string;
   email: string;
+  senha: string;
   telefone: string;
   cnpj: string;
   teste: string;
