@@ -1,6 +1,7 @@
 import { getBarbearias } from "@/app/actions/barbearia/get";
-import Barbearia from "@/app/register/barbearia/page";
+import { cookies } from "next/headers";
 import { BarbeariaItem } from "./BarbeariaItem";
+import NavBar from "@/components/NavBar";
 
 interface Servico {
   id: number;
@@ -19,11 +20,21 @@ interface Barbearia {
   servicos: Servico[];
 }
 
-export default async function Barbearias() {
+const fetchData = async () => {
+  const cookieStore = cookies();
+  const accessToken = cookieStore.get('accessToken');
+  const isLoggedIn = !!accessToken;
   const barbearias: Barbearia[] = await getBarbearias();
+
+  return { barbearias };
+};
+
+export default async function Barbearias() {
+  const { barbearias } = await fetchData();
 
   return (
     <main className="flex min-h-screen flex-col items-center">
+      <NavBar/>
       <section className="bg-slate-700 rounded min-w-[500px] p-6 m-4">
         <div className="flex justify-between">
           <h2 className="text-2xl font-semibold">Barbearias Cadastradas</h2>

@@ -11,9 +11,12 @@
   "dependencies": {
     "@nextui-org/react": "^2.2.10",
     "axios": "^1.7.2",
+    "cookie": "^0.6.0",
     "framer-motion": "^11.0.27",
+    "js-cookie": "^3.0.5",
     "lucide-react": "^0.367.0",
     "next": "^14.2.2",
+    "nookies": "^2.5.2",
     "react": "^18",
     "react-dom": "^18",
     "react-hot-toast": "^2.4.1"

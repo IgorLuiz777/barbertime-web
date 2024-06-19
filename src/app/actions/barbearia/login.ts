@@ -14,10 +14,9 @@ export async function login(prevState: any, formData: FormData) {
         await axios.post(`${process.env.API_BASE_URL}/barbearia/login`, data)
             .then((response) => {
                 const data = response.data;
-                cookies().set("acessToken", data.acessToken)
+                cookies().set("accessToken", data.accessToken)
             })
-
-        redirect("/home/barbearia");
+        redirect("/home/barbearia")
     } catch (error) {
         console.error('Failed to login:', error);
         throw error;
